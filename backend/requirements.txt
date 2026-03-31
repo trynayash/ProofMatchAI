@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+gunicorn
+google-genai
+google-adk
+google-cloud-firestore
+google-cloud-storage
+firebase-admin
+python-multipart
+pydantic
+pydantic-settings
+fpdf2
+python-jose[cryptography]
+slowapi
+httpx
+Pillow
+python-dateutil

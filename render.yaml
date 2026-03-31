@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: proofmatch-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: AUTH_DISABLED
+        value: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_CLOUD_PROJECT
+        sync: false
+      - key: GCS_BUCKET_NAME
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+
+  - type: web
+    name: proofmatch-frontend
+    env: docker
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: BACKEND_URL
+        value: https://proofmatch-backend.onrender.com
+    autoDeploy: false
