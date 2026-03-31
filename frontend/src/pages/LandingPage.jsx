@@ -1,16 +1,14 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Shield, Eye, FileSearch, FileCheck } from '@/components/icons';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { VideoHero } from '@/components/ui/video-hero';
 import { ShapeContainer } from '@/components/ui/shape-landing-hero';
 
 export default function LandingPage() {
   const { login, isAuthenticated, loading } = useAuth();
-  const navigate = useNavigate();
 
   if (isAuthenticated) {
-    navigate('/verify');
-    return null;
+    return <Navigate to="/verify" replace />;
   }
 
   const features = [

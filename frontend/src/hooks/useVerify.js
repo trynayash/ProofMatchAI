@@ -25,13 +25,18 @@ export function useVerify() {
     setCurrentStep(1);
 
     // Create preview
-    setImagePreview(URL.createObjectURL(file));
+    const previewUrl = URL.createObjectURL(file);
+    setImagePreview(previewUrl);
     toast.loading('Starting verification pipeline...', { id: 'verify-toast' });
 
     try {
       // Step 1: Upload
-      const uploadResponse = await uploadImage(file);
-      const uploadData = uploadResponse.data;
+      // NOTE: API interceptor already unwraps response.data
+      const uploadData = await uploadImage(file);
+
+      if (!uploadData?.data) {
+        throw new Error('Upload failed: no data returned from server');
+      }
 
       // Step 2-4: Verify (backend runs the pipeline)
       setCurrentStep(2);
@@ -41,9 +46,9 @@ export function useVerify() {
       const stepTimer2 = setTimeout(() => setCurrentStep(4), 6000);
 
       const verifyResponse = await verifyScreenshot(
-        uploadData.image_base64,
-        uploadData.mime_type,
-        uploadData.file_uri
+        uploadData.data.image_base64,
+        uploadData.data.mime_type,
+        uploadData.data.file_uri
       );
 
       clearTimeout(stepTimer1);
@@ -69,7 +74,11 @@ export function useVerify() {
     setIsLoading(false);
     setResult(null);
     setError(null);
-    setImagePreview(null);
+    // Revoke object URL to prevent memory leaks
+    setImagePreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
   }, []);
 
   return {

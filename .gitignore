@@ -21,6 +21,7 @@ build/
 .idea/
 *.swp
 *.swo
+.gemini/
 
 # OS
 .DS_Store
@@ -31,3 +32,12 @@ uploads/
 
 # Logs
 *.log
+
+# Designer packs (large assets not needed in repo)
+ionicons.designerpack/
+
+# Python virtual environments
+backend/venv/
+
+# Build logs
+build_output.log

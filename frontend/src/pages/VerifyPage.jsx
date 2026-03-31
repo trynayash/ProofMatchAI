@@ -46,6 +46,27 @@ export default function VerifyPage() {
       )}
 
 
+      {/* Error */}
+      {error && !isLoading && (
+        <div className="mt-6 animate-fade-in">
+          <div className="rounded-lg border border-[var(--color-danger,#fca5a5)] bg-[var(--color-danger-bg,#fef2f2)] px-5 py-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-danger,#dc2626)]" />
+              <div>
+                <p className="text-sm font-medium text-[var(--color-danger,#dc2626)]">Verification Failed</p>
+                <p className="mt-1 text-xs text-[var(--color-text-secondary,#64748b)]">{error}</p>
+              </div>
+            </div>
+            <button
+              onClick={reset}
+              className="mt-3 flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] cursor-pointer transition-colors hover:bg-[var(--color-bg-elevated)]"
+            >
+              <RotateCcw className="h-3 w-3" />
+              Try Again
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Result */}
       {result && (

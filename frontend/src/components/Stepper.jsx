@@ -22,7 +22,7 @@ export default function Stepper({ steps, currentStep }) {
           const isPending = currentStep < index + 1;
 
           return (
-            <div key={step.id} className="relative flex flex-col items-center">
+            <div key={step.key || index} className="relative flex flex-col items-center">
               <motion.div
                 initial={false}
                 animate={{
